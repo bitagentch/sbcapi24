@@ -1,0 +1,110 @@
+openapi: 3.0.3
+
+info:
+  title: LnPayApi
+  version: 0.0.1
+
+servers:
+  - url: http://localhost:3000/api
+
+tags:
+  - name: Ping
+  - name: Pay
+
+paths:
+  /ping:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingResponse'
+      tags:
+        - Ping
+
+  /lightning-address/{address}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/LightningAddressParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LightningAddressResponse'
+      tags:
+        - Pay
+
+  /pay-request:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayResponse'
+      tags:
+        - Pay
+
+components:
+  parameters:
+    LightningAddressParam:
+      name: address
+      in: path
+      required: true
+      schema:
+        type: string
+        example: beat@bitagent.ch
+
+  schemas:
+    PingResponse:
+      type: object
+      properties:
+        response:
+          type: string
+          example: pong
+
+    LightningAddressResponse:
+      type: object
+      properties:
+        payRequest:
+          type: boolean
+          default: false
+        minSendable:
+          type: number
+        maxSendable:
+          type: number
+        commentAllowed:
+          type: number
+        callback:
+          type: string
+
+    PayRequest:
+      type: object
+      properties:
+        callback:
+          type: string
+        amount:
+          type: number
+        comment:
+          type: string
+      required:
+        - callback
+        - amount
+
+    PayResponse:
+      type: object
+      properties:
+        payRequest:
+          type: string
+        qrCode:
+          type: string
