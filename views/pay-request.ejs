@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <%- include('./partials/head'); %>
+    <body>
+        <h1>
+            Pay Request
+        </h1>
+        <div>
+            <label>Lightning Address</label>
+            <input name="lightningAddress" value="<%=payData.address%>" readonly>
+        </div>
+        <% if (payData.address) { %>
+            <form action="/pay-request-response" method="post">
+                <div>
+                    <label>Amount [msat]</label>
+                    <input type="number" name="amount" min="<%=payData.addressResponse?.minSendable%>" max="<%=payData.addressResponse?.maxSendable%>" required>
+                </div>
+                <div>
+                    <label>Comment</label>
+                    <textarea name="comment" rows="4" maxlength="<%=payData.addressResponse?.commentAllowed%>"></textarea>
+                </div>
+                <div class="flex-end">
+                    <button type="submit" name="button" value="submit">Submit</button>
+                </div>
+            </form>
+        <% } %>
+        <%- include('./partials/footer'); %>
+    </body>
+</html>

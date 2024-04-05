@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <%- include('./partials/head'); %>
+    <body>
+        <h1>
+            Pay Address
+        </h1>
+        <form action="/pay-address-response" method="post">
+            <div>
+                <label>Lightning Address</label>
+                <input type="email" name="lightningAddress" value="<%=payData.address%>" required>
+            </div>
+            <div class="flex-end">
+                <button type="submit" name="button" value="submit">Submit</button>
+            </div>
+        </form>
+        <%- include('./partials/footer'); %>
+    </body>
+</html>

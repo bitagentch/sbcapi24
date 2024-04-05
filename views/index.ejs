@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <%- include('./partials/head'); %>
+    <body>
+        <h1>
+            Welcome to LnPay
+        </h1>
+        <div>
+            Swiss Bitcoin Conference Nerd Academy
+        </div>
+        <% if (errorMessage) { %>
+            <div>
+                &nbsp;
+            </div>
+            <div>
+                <input value="<%=errorMessage%>" readonly>
+            </div>
+        <% } %>
+        <h2>
+            Api
+        </h2>
+        <div>
+            <a href="<%=url%>/redocly" target="_blank">/redocly</a> Api docs
+        </div>
+        <div>
+            <a href="<%=url%>/swagger" target="_blank">/swagger</a> Api docs and testing
+        </div>
+        <h2>
+            App
+        </h2>
+        <div>
+            <a href="<%=url%>/pay/address">Pay</a> with Lightning Address
+        </div>
+    </body>
+</html>

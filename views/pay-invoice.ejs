@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <%- include('./partials/head'); %>
+    <body>
+        <h1>
+            Pay Invoice
+        </h1>
+        <div>
+            <label>Lightning Address</label>
+            <input name="lightningAddress" value="<%=payData.address%>" readonly>
+        </div>
+        <div>
+            <label>Amount [msat]</label>
+            <input name="amount" value="<%=payData.amount%>" readonly>
+        </div>
+        <div>
+            <label>Comment</label>
+            <textarea name="comment" rows="4" readonly><%=payData.comment%></textarea>
+        </div>
+        <div>
+            <label>Invoice</label>
+            <img src="<%=payData.payResponse?.qrCode%>" width="100%" />
+        </div>
+        <%- include('./partials/footer'); %>
+    </body>
+</html>
