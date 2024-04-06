@@ -89,7 +89,7 @@ app.post('/api/pay-request', async (req, res) => {
 // app home
 let errorMessage = undefined;
 app.get('/', (req, res) => {
-  res.render("index", { url: url, errorMessage: errorMessage });
+  res.render("index", { errorMessage: errorMessage });
   errorMessage = undefined;
 })
 
@@ -97,7 +97,7 @@ app.get('/', (req, res) => {
 let payData = {};
 app.get('/pay/address', (req, res) => {
   payData = {};
-  res.render("pay-address", { url: url, payData: payData });
+  res.render("pay-address", { payData: payData });
 })
 app.post('/pay-address-response', async function (req, res) {
   try {
@@ -123,7 +123,7 @@ app.post('/pay-address-response', async function (req, res) {
   res.redirect("/");
 });
 app.get('/pay/request', (req, res) => {
-  res.render("pay-request", { url: url, payData: payData });
+  res.render("pay-request", { payData: payData });
 })
 app.post('/pay-request-response', async function (req, res) {
   try {
@@ -151,6 +151,6 @@ app.post('/pay-request-response', async function (req, res) {
   res.redirect("/");
 });
 app.get('/pay/invoice', (req, res) => {
-  res.render("pay-invoice", { url: url, payData: payData });
+  res.render("pay-invoice", { payData: payData });
   payData = {};
 })
