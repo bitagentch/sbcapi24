@@ -15,11 +15,14 @@
         </div>
         <div>
             <label>Comment</label>
-            <textarea name="comment" rows="4" readonly><%=payData.comment%></textarea>
+            <textarea name="comment" rows="2" readonly><%=payData.comment%></textarea>
         </div>
         <div>
             <label>Invoice</label>
             <img src="<%=payData.payResponse?.qrCode%>" width="100%" />
+        </div>
+        <div>
+            <textarea name="qrcode" rows="4" readonly><%=payData.payResponse?.qrCode%></textarea>
         </div>
         <%- include('./partials/footer'); %>
     </body>
