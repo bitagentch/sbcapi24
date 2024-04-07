@@ -2,25 +2,25 @@
 body {
     max-width: 50rem;
     margin: auto;
-    background: #2d3436;
-    color: #dfe6e9;
+    background: orange;
+    color: black;
     font-family: sans-serif;
     font-size: 2rem;
 }
 
 h1, h2 {
-    color: orange;
+    color: black;
     font-family: monospace;
 }
 
 button {
-    background: dodgerblue;
+    background: #3468C0;
     color: #dfe6e9;
     font-family: monospace;
 }
 
 a, a:hover {
-    color: dodgerblue;
+    color: #3468C0;
     font-family: monospace;
     text-decoration: none;
 }
@@ -29,8 +29,8 @@ input {
     width: 100%;
 }
 input:read-only, textarea:read-only {
-    background-color: #2d3436;
-    color: #dfe6e9;
+    background-color: orange;
+    color: black;
 }
 
 .flex-end {
