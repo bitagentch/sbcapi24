@@ -5,9 +5,11 @@
 [bitagent.ch](https://bitagent.ch)
 
 ## Voraussetzungen
-- https://nodejs.org
-- https://npmjs.com
+- [node.js](https://nodejs.org)
+- [npm](https://npmjs.com)
 ```
 npm install
 node app.js
 ```
+- [bitcoind](https://bitcoincore.org)
+- [lnd](https://docs.lightning.engineering/lightning-network-tools/lnd)
