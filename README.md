@@ -3,3 +3,11 @@
 [Swiss Bitcoin Conference](https://swiss-bitcoin-conference.com/) | Nerd Academy | 27. April 2024
 
 [bitagent.ch](https://bitagent.ch)
+
+## Voraussetzungen
+- https://nodejs.org
+- https://npmjs.com
+```
+npm install
+node app.js
+```
