@@ -2,18 +2,22 @@
   "name": "sbcapi24",
   "scripts": {
     "redocly": "redocly build-docs ln-pay-api.yaml --output ln-pay-api.html",
-    "yaml2json": "yaml2json ln-pay-api.yaml > ln-pay-api.json"
+    "yaml2json": "yaml2json ln-pay-api.yaml > ln-pay-api.json",
+    "slides2pdf": "npx @marp-team/marp-cli@latest slides.md -o slides.pdf"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.10.1",
-    "@grpc/proto-loader": "^0.7.10",
-    "@redocly/cli": "^1.10.4",
     "ejs": "^3.1.9",
     "express": "^4.18.3",
     "qrcode": "^1.5.3",
-    "readline-sync": "^1.4.10",
     "request": "^2.88.2",
-    "swagger-ui-express": "^5.0.0",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "@grpc/grpc-js": "^1.10.1",
+    "@grpc/proto-loader": "^0.7.10",
+    "@marp-team/marp-cli": "^3.4.0",
+    "@redocly/cli": "^1.10.4",
+    "readline-sync": "^1.4.10",
     "yamljs": "^0.3.0"
   }
 }
