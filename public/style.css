@@ -18,6 +18,9 @@ button, button:visited {
     color: #dfe6e9;
     font-family: monospace;
 }
+button:disabled {
+    background: #2d3436;
+}
 
 a, a:hover, a:visited {
     color: dodgerblue;
