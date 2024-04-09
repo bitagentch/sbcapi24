@@ -4,6 +4,8 @@
 
 [bitagent.ch](https://bitagent.ch)
 
+[LnPay](https://lnpay.onrender.com/)
+
 ## Voraussetzungen
 - [node.js](https://nodejs.org)
 - [npm](https://npmjs.com)
