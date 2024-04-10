@@ -1,4 +1,4 @@
-const util = require('./util');
+import { getLndRestOptions, getRequest, logQrCode, logInvoice } from './util.js';
 
 const main = async () => {
     const hexString = process.argv[2];
@@ -7,11 +7,11 @@ const main = async () => {
         process.exit();
     }
 
-    const options = util.getLndRestOptions('/v1/invoice/' + hexString);
-    const response = await util.getRequest(options);
+    const options = getLndRestOptions('/v1/invoice/' + hexString);
+    const response = await getRequest(options);
     const invoice = response.body;
-    util.logQrCode(invoice.payment_request);
-    util.logInvoice(invoice);
+    logQrCode(invoice.payment_request);
+    logInvoice(invoice);
 }
 
 main();

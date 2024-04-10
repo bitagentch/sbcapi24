@@ -1,6 +1,6 @@
-const util = require("./util.js");
-const readlineSync = require('readline-sync');
+import {QUESTION_PASSWORD, getJsonRpcOptions, postRequest} from './util.js';
+import {question} from 'readline-sync';
 
-const password = readlineSync.question(util.QUESTION_PASSWORD, {hideEchoBack: true});
-const options = util.getJsonRpcOptions('getblockcount', [], password);
-util.postRequest(options);
+const password = question(QUESTION_PASSWORD, {hideEchoBack: true});
+const options = getJsonRpcOptions('getblockcount', [], password);
+postRequest(options);

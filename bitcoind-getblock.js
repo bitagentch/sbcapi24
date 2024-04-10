@@ -1,5 +1,5 @@
-const util = require("./util.js");
-const readlineSync = require('readline-sync');
+import {QUESTION_PASSWORD, getJsonRpcOptions, postRequest} from './util.js';
+import {question} from 'readline-sync';
 
 const main = async () => {
     const block = process.argv[2];
@@ -7,15 +7,15 @@ const main = async () => {
         console.error('Block missing!');
         process.exit();
     }
-    const password = readlineSync.question(util.QUESTION_PASSWORD, {hideEchoBack: true});
+    const password = question(QUESTION_PASSWORD, {hideEchoBack: true});
 
-    let options = util.getJsonRpcOptions('getblockhash', [Number(block)], password);
-    let response = await util.postRequest(options);
+    let options = getJsonRpcOptions('getblockhash', [Number(block)], password);
+    let response = await postRequest(options);
     if (200 === response.statusCode) {
         const blockhash = response.body.result;
 
-        options = util.getJsonRpcOptions('getblock', [blockhash], password);
-        response = await util.postRequest(options);
+        options = getJsonRpcOptions('getblock', [blockhash], password);
+        response = await postRequest(options);
         if (200 === response.statusCode) {
             const blockdata = response.body.result;
             console.log('Block', blockdata.height, '@', new Date(blockdata.time * 1000));

@@ -1,16 +1,20 @@
-const express = require('express')
-const swaggerUi = require('swagger-ui-express');
-const lnpayapijson = require('./ln-pay-api.json');
-const path = require('path');
-const util = require('./util');
+import express from 'express';
+import { serve, setup } from 'swagger-ui-express';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import { readFileSync } from 'fs';
+import { validateLightningAddress, LIGHTNING_ADDRESS_INVALID, getUriOptions, getLightningAddressUri, getRequest, getQrCode, postRequest } from './util.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const lnpayapihtml = 'ln-pay-api.html';
+const lnpayapijson = 'ln-pay-api.json';
 const PORT = process.env.PORT || 3000;
 const url = `http://localhost:${PORT}`
 
 const app = express()
 app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.listen(PORT, () => {
@@ -19,11 +23,11 @@ app.listen(PORT, () => {
 
 // api redocly
 app.get('/redocly', (req, res) => {
-  res.sendFile(path.join(__dirname, lnpayapihtml));
+  res.sendFile(join(__dirname, lnpayapihtml));
 })
 
 // api swagger
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(lnpayapijson))
+app.use('/swagger', serve, setup(JSON.parse(readFileSync(join(__dirname, lnpayapijson)))));
 
 // api ping
 app.get('/api/ping', (req, res) => {
@@ -34,12 +38,12 @@ app.get('/api/ping', (req, res) => {
 app.get('/api/lightning-address/:address', async (req, res) => {
   try {
     const lightningAddress = req.params.address;
-    if (!util.validateLightningAddress(lightningAddress)) {
-      throw new Error(util.LIGHTNING_ADDRESS_INVALID);
+    if (!validateLightningAddress(lightningAddress)) {
+      throw new Error(LIGHTNING_ADDRESS_INVALID);
     }
 
-    const options = util.getUriOptions(util.getLightningAddressUri(lightningAddress));
-    const response = await util.getRequest(options);
+    const options = getUriOptions(getLightningAddressUri(lightningAddress));
+    const response = await getRequest(options);
     if (200 === response.statusCode) {
       const body = JSON.parse(response.body);
       res.send({
@@ -65,8 +69,8 @@ app.post('/api/pay-request', async (req, res) => {
     const amount = req.body.amount;
     const comment = req.body.comment;
 
-    const options = util.getUriOptions(callback + '?amount=' + amount + '&comment=' + comment);
-    const response = await util.getRequest(options);
+    const options = getUriOptions(callback + '?amount=' + amount + '&comment=' + comment);
+    const response = await getRequest(options);
     if (200 === response.statusCode) {
       const body = JSON.parse(response.body);
       if ("ERROR" === body.status) {
@@ -74,7 +78,7 @@ app.post('/api/pay-request', async (req, res) => {
       } else {
         res.send({
           payRequest: body.pr,
-          qrCode: await util.getQrCode(body.pr)
+          qrCode: await getQrCode(body.pr)
         });
       }
     } else {
@@ -103,8 +107,8 @@ app.post('/pay-address-response', async function (req, res) {
   try {
     payData.address = req.body.lightningAddress;
     if (req.body.button === 'submit') {
-      const options = util.getUriOptions(url + '/api/lightning-address/' + payData.address);
-      const response = await util.getRequest(options);
+      const options = getUriOptions(url + '/api/lightning-address/' + payData.address);
+      const response = await getRequest(options);
       if (200 === response.statusCode) {
         const body = JSON.parse(response.body);
         payData.addressResponse = body;
@@ -130,12 +134,12 @@ app.post('/pay-request-response', async function (req, res) {
     payData.amount = req.body.amount;
     payData.comment = req.body.comment;
     if (req.body.button === 'submit') {
-      const options = util.getUriOptions(url + '/api/pay-request', {
+      const options = getUriOptions(url + '/api/pay-request', {
         callback: payData.addressResponse.callback,
         amount: payData.amount,
         comment: encodeURIComponent(payData.comment)
       });
-      const response = await util.postRequest(options);
+      const response = await postRequest(options);
       if (200 === response.statusCode) {
         payData.payResponse = response.body;
         res.redirect("/pay/invoice");

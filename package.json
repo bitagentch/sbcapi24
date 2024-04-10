@@ -1,5 +1,6 @@
 {
   "name": "sbcapi24",
+  "type": "module",
   "scripts": {
     "redocly": "redocly build-docs ln-pay-api.yaml --output ln-pay-api.html",
     "yaml2json": "yaml2json ln-pay-api.yaml > ln-pay-api.json",

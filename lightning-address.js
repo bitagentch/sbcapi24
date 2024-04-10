@@ -1,13 +1,13 @@
-const util = require('./util');
+import { validateLightningAddress, LIGHTNING_ADDRESS_INVALID, getUriOptions, getLightningAddressUri, getRequest } from './util.js';
 
 const main = async () => {
     const lightningAddress = process.argv[2];
-    if (!util.validateLightningAddress(lightningAddress)) {
-        console.error(util.LIGHTNING_ADDRESS_INVALID);
+    if (!validateLightningAddress(lightningAddress)) {
+        console.error(LIGHTNING_ADDRESS_INVALID);
         process.exit();
     }
-    const options = util.getUriOptions(util.getLightningAddressUri(lightningAddress));
-    const response = await util.getRequest(options);
+    const options = getUriOptions(getLightningAddressUri(lightningAddress));
+    const response = await getRequest(options);
     const body = JSON.parse(response.body);
     console.log(body);
 }

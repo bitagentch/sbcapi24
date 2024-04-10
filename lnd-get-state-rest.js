@@ -1,4 +1,4 @@
-const util = require('./util');
+import { getLndRestOptions, getRequest } from './util.js';
 
-const options = util.getLndRestOptions('/v1/state');
-util.getRequest(options);
+const options = getLndRestOptions('/v1/state');
+getRequest(options);

@@ -1,4 +1,4 @@
-const util = require('./util');
+import { getLndRestOptions, postRequest, logQrCode, logInvoice } from './util.js';
 
 const main = async () => {
     const requestBody = {
@@ -6,11 +6,11 @@ const main = async () => {
         value_msat: 0,
         expiry: 1*60
     };
-    const options = util.getLndRestOptions('/v1/invoices', requestBody);
-    const response = await util.postRequest(options);
+    const options = getLndRestOptions('/v1/invoices', requestBody);
+    const response = await postRequest(options);
     const invoice = response.body;
-    util.logQrCode(invoice.payment_request);
-    util.logInvoice(invoice);
+    logQrCode(invoice.payment_request);
+    logInvoice(invoice);
 }
 
 main();

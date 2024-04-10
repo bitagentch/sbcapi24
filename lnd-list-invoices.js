@@ -1,10 +1,10 @@
-const util = require('./util');
+import { getLndRestOptions, getRequest, logInvoice } from './util.js';
 
 const main = async () => {
-    const options = util.getLndRestOptions('/v1/invoices');
-    const response = await util.getRequest(options);
+    const options = getLndRestOptions('/v1/invoices');
+    const response = await getRequest(options);
     response.body.invoices.forEach(invoice => {
-        util.logInvoice(invoice);
+        logInvoice(invoice);
     });
 }
 
