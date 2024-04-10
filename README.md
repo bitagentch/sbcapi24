@@ -15,3 +15,7 @@ node app.js
 ```
 - [bitcoind](https://bitcoincore.org)
 - [lnd](https://docs.lightning.engineering/lightning-network-tools/lnd)
+
+## Slides
+- Markdown [slides.md](slides.md)
+- PDF in Terminal generieren mit `npm run-script slides2pdf`
