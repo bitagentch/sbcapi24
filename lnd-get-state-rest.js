@@ -1,4 +1,4 @@
-import { getLndRestOptions, getRequest } from './util.js';
+import { getLndRestOptionsGot, getGot } from './util.js';
 
-const options = getLndRestOptions('/v1/state');
-getRequest(options);
+const options = getLndRestOptionsGot('/v1/state');
+getGot(options);

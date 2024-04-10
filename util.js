@@ -1,6 +1,6 @@
 import {homedir} from 'os';
 import {readFileSync} from 'fs';
-import request from 'request';
+import got from 'got';
 import qrcode from 'qrcode';
 
 const JSON_RPC_HOST = 'localhost:8332';
@@ -20,9 +20,9 @@ function getJsonRpcHeaders(username, password) {
         'Authorization': 'Basic ' + btoa(`${username}:${password}`)
     }
 }
-export function getJsonRpcOptions(method, params, password) {
+export function getJsonRpcOptionsGot(method, params, password) {
     const options = {
-        uri: JSON_RPC_URI,
+        url: JSON_RPC_URI,
         json: {
             jsonrpc: JSON_RPC,
             id: JSON_RPC_ID,
@@ -33,65 +33,68 @@ export function getJsonRpcOptions(method, params, password) {
     }
     return options;
 }
-export function getLndRestOptions(context, requestBody) {
+export function getLndRestOptionsGot(context, requestBody) {
     const options = {
         url: `${LND_REST_URL}${context}`,
-        // Work-around for self-signed certificates.
-        rejectUnauthorized: false,
-        json: true,
+        https: { 
+            // Work-around for self-signed certificates.
+            rejectUnauthorized: false 
+        },
         headers: {
             'Grpc-Metadata-macaroon': readFileSync(LND_MACAROON_PATH).toString('hex')
-        },
-        form: JSON.stringify(requestBody)
+        }
+    }
+    if (requestBody) {
+        options.json = requestBody;
     }
     return options;
 }
-export function getUriOptions(uri, body) {
+export function getUrlOptionsGot(uri, body) {
     if (body) {
         return {
-            uri: uri,
-            body: body,
-            json: true
+            url: uri,
+            json: body
         }
     } else {
         return {
-            uri: uri
+            url: uri
         }
     }
 }
 
-export function getRequest(options) {
-    const promise = new Promise(resolve => {
-        request.get(options, function(error, response, body) {
-            logResponse(error, response, body);
-            if (response) {
-                resolve(response);
-            } else {
-                resolve(error);
-            }
-        });
-    });
-    return promise;
-}
-export function postRequest(options) {
-    const promise = new Promise(resolve => {
-        request.post(options, function(error, response, body) {
-            logResponse(error, response, body);
-            if (response) {
-                resolve(response);
-            } else {
-                resolve(error);
-            }
-        });
-    });
-    return promise;
-}
-function logResponse(error, response, body) {
-    if (response) {
-        console.log(response.statusCode, response.body);
-    } else {
-        console.error(error);
+export async function getGot(options) {
+    let responseJson;
+    try {
+        const response = await got.get(options);
+        responseJson = {
+            statusCode: response.statusCode,
+            body: JSON.parse(response.body)
+        };
+    } catch (err) {
+        responseJson = {
+            statusCode: 400,
+            body: err.cause
+        };
     }
+    console.log(responseJson);
+    return responseJson;
+}
+export async function postGot(options) {
+    let responseJson;
+    try {
+        const response = await got.post(options);
+        responseJson = {
+            statusCode: response.statusCode,
+            body: JSON.parse(response.body)
+        };
+    } catch (err) {
+        responseJson = {
+            statusCode: 400,
+            body: err.cause
+        };
+    }
+    console.log(responseJson);
+    return responseJson;
 }
 export function logQrCode(data) {
     qrcode.toString(data, {type:'terminal', small: true}, function (err, url) {

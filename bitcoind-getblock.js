@@ -1,7 +1,7 @@
-import {QUESTION_PASSWORD, getJsonRpcOptions, postRequest} from './util.js';
+import {QUESTION_PASSWORD, postGot, getJsonRpcOptionsGot} from './util.js';
 import {question} from 'readline-sync';
 
-const main = async () => {
+const main = async function () {
     const block = process.argv[2];
     if (isNaN(block)) {
         console.error('Block missing!');
@@ -9,13 +9,13 @@ const main = async () => {
     }
     const password = question(QUESTION_PASSWORD, {hideEchoBack: true});
 
-    let options = getJsonRpcOptions('getblockhash', [Number(block)], password);
-    let response = await postRequest(options);
+    let options = getJsonRpcOptionsGot('getblockhash', [Number(block)], password);
+    let response = await postGot(options);
     if (200 === response.statusCode) {
         const blockhash = response.body.result;
 
-        options = getJsonRpcOptions('getblock', [blockhash], password);
-        response = await postRequest(options);
+        options = getJsonRpcOptionsGot('getblock', [blockhash], password);
+        response = await postGot(options);
         if (200 === response.statusCode) {
             const blockdata = response.body.result;
             console.log('Block', blockdata.height, '@', new Date(blockdata.time * 1000));

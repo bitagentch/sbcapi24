@@ -1,11 +1,13 @@
-import { getLndRestOptions, getRequest, logInvoice } from './util.js';
+import { getLndRestOptionsGot, getGot, logInvoice } from './util.js';
 
-const main = async () => {
-    const options = getLndRestOptions('/v1/invoices');
-    const response = await getRequest(options);
-    response.body.invoices.forEach(invoice => {
-        logInvoice(invoice);
-    });
+const main = async function () {
+    const options = getLndRestOptionsGot('/v1/invoices');
+    const response = await getGot(options);
+    if (200 === response.statusCode) {
+        response.body.invoices.forEach(invoice => {
+            logInvoice(invoice);
+        });
+    }
 }
 
 main();

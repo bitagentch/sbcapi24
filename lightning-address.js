@@ -1,15 +1,13 @@
-import { validateLightningAddress, LIGHTNING_ADDRESS_INVALID, getUriOptions, getLightningAddressUri, getRequest } from './util.js';
+import { validateLightningAddress, LIGHTNING_ADDRESS_INVALID, getUrlOptionsGot, getLightningAddressUri, getGot } from './util.js';
 
-const main = async () => {
+const main = async function () {
     const lightningAddress = process.argv[2];
     if (!validateLightningAddress(lightningAddress)) {
         console.error(LIGHTNING_ADDRESS_INVALID);
         process.exit();
     }
-    const options = getUriOptions(getLightningAddressUri(lightningAddress));
-    const response = await getRequest(options);
-    const body = JSON.parse(response.body);
-    console.log(body);
+    const options = getUrlOptionsGot(getLightningAddressUri(lightningAddress));
+    getGot(options);
 }
 
 main();
