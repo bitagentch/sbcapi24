@@ -4,7 +4,9 @@
   "scripts": {
     "redocly": "redocly build-docs ln-pay-api.yaml --output ln-pay-api.html",
     "yaml2json": "yaml2json ln-pay-api.yaml > ln-pay-api.json",
-    "slides2pdf": "npx @marp-team/marp-cli@latest slides.md -o slides.pdf"
+    "slides2pdf": "npx @marp-team/marp-cli@latest slides.md -o slides.pdf",
+    "cy-open": "npx cypress open",
+    "cy-run": "npx cypress run"
   },
   "dependencies": {
     "ejs": "^3.1.9",
@@ -18,6 +20,7 @@
     "@grpc/proto-loader": "^0.7.12",
     "@marp-team/marp-cli": "^3.4.0",
     "@redocly/cli": "^1.11.0",
+    "cypress": "^13.7.2",
     "readline-sync": "^1.4.10",
     "yamljs": "^0.3.0"
   }
