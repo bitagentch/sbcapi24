@@ -276,10 +276,17 @@ App listening on http://localhost:3000
 - http://localhost:3000
 
 ---
-## 5.5 Deploy mit Render
+## 5.5 End-to-End Testing mit cypress
+- https://cypress.io
+```
+npx cypress open
+npx cypress run
+```
+
+---
+## 5.6 Deploy mit Render
 - [How to Deploy Your Node.js Application for Free with Render](https://www.freecodecamp.org/news/how-to-deploy-nodejs-application-with-render/)
 - https://lnpay.onrender.com
-
 
 ---
 ## Fragen?
