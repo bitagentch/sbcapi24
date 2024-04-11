@@ -19,3 +19,4 @@ node app.js
 ## Slides
 - Markdown [slides.md](slides.md)
 - PDF in Terminal generieren mit `npm run-script slides2pdf`
+- Marp Plugin für [codium](https://vscodium.com/)

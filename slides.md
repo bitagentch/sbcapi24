@@ -38,10 +38,10 @@ marp: true
 [Swiss Bitcoin Conference](https://swiss-bitcoin-conference.com/) | 27. April 2024
 ## Nerd Academy
 # BTC & LN Schnittstellen (API)
-[beat@bitagent.ch](mailto:beat@bitagent.ch) | [bitagent.ch](https://bitagent.ch)
+[beat@bitagent.ch](mailto:beat@bitagent.ch) | [bitagent.ch](https://bitagent.ch) | [github.com/bitagentch/sbcapi24](https://github.com/bitagentch/sbcapi24)
 
 ---
-# [Bitagent.ch](https://bitagent.ch)
+# [bitagent.ch](https://bitagent.ch)
 - Bitcoin kaufen, sparen und verkaufen
 - Technische Beratung zu Kauf, Eigenverwahrung und Verkauf
 - Kaufen u.a. via [Pocket REST API](https://pocketbitcoin.com/developers/docs/rest/v1) und 10% Gebühren sparen
