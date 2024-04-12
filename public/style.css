@@ -41,3 +41,13 @@ input:read-only, textarea:read-only {
     justify-content: flex-end;
     gap: 1rem;
 }
+
+.flex-space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+}

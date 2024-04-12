@@ -17,13 +17,26 @@
             <label>Comment</label>
             <textarea name="comment" rows="2" readonly><%=payData.comment%></textarea>
         </div>
-        <div>
-            <label>Invoice</label>
-            <img src="<%=payData.payResponse?.qrCode%>" width="100%" />
-        </div>
-        <div>
-            <textarea name="qrcode" rows="4" readonly><%=payData.payResponse?.qrCode%></textarea>
-        </div>
+        <% if (payData?.payResponse) { %>
+            <div>
+                <label>Invoice</label>
+                <img src="<%=payData.payResponse?.qrCode%>" width="100%" />
+            </div>
+            <div class="flex-space-between flex-center">
+                <div>
+                    <textarea id="payrequestid" rows="2" readonly><%=payData.payResponse?.payRequest%></textarea>
+                </div>
+                <div>
+                    <button type="button" id="copyid">Copy</button>
+                    <script>
+                        document.getElementById('copyid').addEventListener("click", (event) => {
+                            const pr = document.getElementById('payrequestid').value;
+                            navigator.clipboard.writeText(pr);
+                        });
+                    </script>
+                </div>
+            </div>
+        <% } %>
         <%- include('./partials/footer'); %>
     </body>
 </html>
