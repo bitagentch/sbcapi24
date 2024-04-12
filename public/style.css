@@ -45,6 +45,7 @@ input:read-only, textarea:read-only {
 .flex-space-between {
     display: flex;
     justify-content: space-between;
+    gap: 1rem;
 }
 
 .flex-center {
