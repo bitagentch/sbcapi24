@@ -11,7 +11,7 @@
 - [npm](https://npmjs.com)
 ```
 npm install
-node app.js
+npm run
 ```
 - [bitcoind](https://bitcoincore.org)
 - [lnd](https://docs.lightning.engineering/lightning-network-tools/lnd)
