@@ -85,7 +85,10 @@ http://127.0.0.1:8332/
 ```
 ```
 node bitcoind-getblockcount.js
-200 { result: 834404, error: null, id: 'js-test' }
+{
+  statusCode: 200,
+  body: { result: 834404, error: null, id: 'js-test' }
+}
 ```
 
 ---
@@ -96,10 +99,13 @@ bitcoin-cli getblockhash 0
 ```
 ```
 node bitcoind-getblockhash.js 0
-200 {
-  result: '000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f',
-  error: null,
-  id: 'js-test'
+{
+  statusCode: 200,
+  body: {
+    result: '000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f',
+    error: null,
+    id: 'js-test'
+  }
 }
 ```
 
@@ -136,12 +142,12 @@ lncli state
 { "state": "SERVER_ACTIVE" }
 ```
 ```
-node lnd-get-state-rest.js
-200 { state: 'SERVER_ACTIVE' }
-```
-```
 node lnd-get-state-grpc.js
 { state: 'SERVER_ACTIVE' }
+```
+```
+node lnd-get-state-rest.js
+{ statusCode: 200, body: { state: 'SERVER_ACTIVE' } }
 ```
 
 ---
@@ -173,10 +179,10 @@ node lnd-list-invoices.js
 ---
 ## 2.4 [LookupInvoice](https://lightning.engineering/api-docs/api/lnd/lightning/lookup-invoice)
 ```
-lncli lookupinvoice b5feeb250fc6d5f658a753a28a5f71506a13bdf07e9b4537ab4213170fe6e196
+lncli lookupinvoice 2af97d6c27366863dafb14f5b417fc1f12c7999c93b40d36afaa45bcb99fb69b
 ```
 ```
-node lnd-lookup-invoice.js b5feeb250fc6d5f658a753a28a5f71506a13bdf07e9b4537ab4213170fe6e196
+node lnd-lookup-invoice.js 2af97d6c27366863dafb14f5b417fc1f12c7999c93b40d36afaa45bcb99fb69b
 ```
 - `GET /v1/invoice/{r_hash_str}`
 
@@ -261,6 +267,9 @@ npx yaml2json ln-pay-api.yaml > ln-pay-api.json
 ---
 ## 5.3 Gen javascript
 - https://openapi-generator.tech/
+```
+npm install @openapitools/openapi-generator-cli --save-dev
+```
 - Client Javascript https://openapi-generator.tech/docs/generators/javascript
 ```
 npx @openapitools/openapi-generator-cli generate -i ln-pay-api.yaml -g javascript -o gen/javascript
