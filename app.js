@@ -54,7 +54,7 @@ app.get('/api/lightning-address/:address', async (req, res) => {
         callback: body.callback
       });
     } else {
-      throw new Error(response);
+      throw new Error(JSON.stringify(response));
     }
   } catch (err) {
     console.error(err);
@@ -74,7 +74,7 @@ app.post('/api/pay-request', async (req, res) => {
     if (200 === response.statusCode) {
       const body = response.body;
       if ("ERROR" === body.status) {
-        throw new Error(JSON.stringify(body));
+        throw new Error(JSON.stringify(response));
       } else {
         res.send({
           payRequest: body.pr,
@@ -82,7 +82,7 @@ app.post('/api/pay-request', async (req, res) => {
         });
       }
     } else {
-      throw new Error(response);
+      throw new Error(JSON.stringify(response));
     }
   } catch (err) {
     console.error(err);
@@ -117,7 +117,7 @@ app.post('/pay-address-response', async function (req, res) {
           return;
         }
       } else {
-        throw new Error(response.body);
+        throw new Error(JSON.stringify(response));
       }
     }
   } catch (err) {
@@ -145,7 +145,7 @@ app.post('/pay-request-response', async function (req, res) {
         res.redirect("/pay/invoice");
         return;
       } else {
-        throw new Error(response);
+        throw new Error(JSON.stringify(response));
       }
     }
   } catch (err) {
