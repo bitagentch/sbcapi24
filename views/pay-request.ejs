@@ -10,7 +10,7 @@
             <input name="lightningAddress" value="<%=payData.address%>" readonly>
         </div>
         <% if (payData.address) { %>
-            <form action="/pay-request-response" method="post">
+            <form id="formid" action="/pay-request-response" method="post">
                 <div>
                     <label>Amount [msat]</label>
                     <input type="number" name="amount" min="<%=payData.addressResponse?.minSendable%>" max="<%=payData.addressResponse?.maxSendable%>" required>
@@ -20,8 +20,13 @@
                     <textarea name="comment" rows="4" maxlength="<%=payData.addressResponse?.commentAllowed%>"></textarea>
                 </div>
                 <div class="flex-end">
-                    <button type="submit" name="button" value="submit">Submit</button>
+                    <button type="submit" id="submitid" name="button" value="submit">Submit</button>
                 </div>
+                <script>
+                    document.getElementById('formid').addEventListener('submit', (event) => {
+                        document.getElementById('submitid').style.display = 'none';
+                    });
+                </script>
             </form>
         <% } %>
         <%- include('./partials/footer'); %>

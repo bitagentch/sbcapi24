@@ -5,14 +5,19 @@
         <h1>
             Pay Address
         </h1>
-        <form action="/pay-address-response" method="post">
+        <form id="formid" action="/pay-address-response" method="post">
             <div>
                 <label>Lightning Address</label>
                 <input type="email" name="lightningAddress" value="<%=payData.address%>" required>
             </div>
             <div class="flex-end">
-                <button type="submit" name="button" value="submit">Submit</button>
+                <button type="submit" id="submitid" name="button" value="submit">Submit</button>
             </div>
+            <script>
+                document.getElementById('formid').addEventListener('submit', (event) => {
+                    document.getElementById('submitid').style.display = 'none';
+                });
+            </script>
         </form>
         <%- include('./partials/footer'); %>
     </body>
