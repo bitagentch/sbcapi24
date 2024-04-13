@@ -8,13 +8,14 @@
         <form id="formid" action="/pay-address-response" method="post">
             <div>
                 <label>Lightning Address</label>
-                <input type="email" name="lightningAddress" value="<%=payData.address%>" required>
+                <input type="email" id="addressid" name="lightningAddress" value="<%=payData.address%>" required>
             </div>
             <div class="flex-end">
                 <button type="submit" id="submitid" name="button" value="submit">Submit</button>
             </div>
             <script>
                 document.getElementById('formid').addEventListener('submit', (event) => {
+                    document.getElementById('addressid').readOnly = true;
                     document.getElementById('submitid').style.display = 'none';
                 });
             </script>

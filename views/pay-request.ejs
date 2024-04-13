@@ -13,17 +13,19 @@
             <form id="formid" action="/pay-request-response" method="post">
                 <div>
                     <label>Amount [msat]</label>
-                    <input type="number" name="amount" min="<%=payData.addressResponse?.minSendable%>" max="<%=payData.addressResponse?.maxSendable%>" required>
+                    <input type="number" id="amountid" name="amount" min="<%=payData.addressResponse?.minSendable%>" max="<%=payData.addressResponse?.maxSendable%>" required>
                 </div>
                 <div>
                     <label>Comment</label>
-                    <textarea name="comment" rows="4" maxlength="<%=payData.addressResponse?.commentAllowed%>"></textarea>
+                    <textarea name="comment" id="commentid" rows="4" maxlength="<%=payData.addressResponse?.commentAllowed%>"></textarea>
                 </div>
                 <div class="flex-end">
                     <button type="submit" id="submitid" name="button" value="submit">Submit</button>
                 </div>
                 <script>
                     document.getElementById('formid').addEventListener('submit', (event) => {
+                        document.getElementById('amountid').readOnly = true;
+                        document.getElementById('commentid').readOnly = true;
                         document.getElementById('submitid').style.display = 'none';
                     });
                 </script>
