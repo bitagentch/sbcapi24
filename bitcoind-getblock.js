@@ -18,6 +18,8 @@ const main = async function () {
         response = await postGot(options);
         if (200 === response.statusCode) {
             const blockdata = response.body.result;
+            const txArray = response.body.result.tx;
+            console.log('Tx', txArray.length, 'Tx0', txArray[0]);
             console.log('Block', blockdata.height, '@', new Date(blockdata.time * 1000));
         }
     }

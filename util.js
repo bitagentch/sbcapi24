@@ -73,7 +73,7 @@ export async function getGot(options) {
     } catch (err) {
         responseJson = {
             statusCode: 400,
-            body: err.cause
+            body: err.message
         };
     }
     console.log(responseJson);
@@ -90,7 +90,7 @@ export async function postGot(options) {
     } catch (err) {
         responseJson = {
             statusCode: 400,
-            body: err.cause
+            body: err.message
         };
     }
     console.log(responseJson);
