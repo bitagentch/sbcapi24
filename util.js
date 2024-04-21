@@ -31,6 +31,9 @@ export function getJsonRpcOptionsGot(method, params, password) {
         },
         headers: getJsonRpcHeaders(USERNAME, password)
     }
+    const optionsClone = JSON.parse(JSON.stringify(options));
+    optionsClone.headers = {};
+    console.log('json-rpc', optionsClone);
     return options;
 }
 export function getLndRestOptionsGot(context, requestBody) {
@@ -47,19 +50,25 @@ export function getLndRestOptionsGot(context, requestBody) {
     if (requestBody) {
         options.json = requestBody;
     }
+    const optionsClone = JSON.parse(JSON.stringify(options));
+    optionsClone.headers = {};
+    console.log('lnd-rest', optionsClone);
     return options;
 }
-export function getUrlOptionsGot(uri, body) {
+export function getRestOptionsGot(uri, body) {
+    let options;
     if (body) {
-        return {
+        options = {
             url: uri,
             json: body
         }
     } else {
-        return {
+        options = {
             url: uri
         }
     }
+    console.log('rest', options);
+    return options;
 }
 
 export async function getGot(options) {

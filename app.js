@@ -3,7 +3,7 @@ import { serve, setup } from 'swagger-ui-express';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { readFileSync } from 'fs';
-import { validateLightningAddress, LIGHTNING_ADDRESS_INVALID, getUrlOptionsGot, getLightningAddressUri, getGot, getQrCode, postGot } from './util.js';
+import { validateLightningAddress, LIGHTNING_ADDRESS_INVALID, getRestOptionsGot, getLightningAddressUri, getGot, getQrCode, postGot } from './util.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -42,7 +42,7 @@ app.get('/api/lightning-address/:address', async (req, res) => {
       throw new Error(LIGHTNING_ADDRESS_INVALID);
     }
 
-    const options = getUrlOptionsGot(getLightningAddressUri(lightningAddress));
+    const options = getRestOptionsGot(getLightningAddressUri(lightningAddress));
     const response = await getGot(options);
     if (200 === response.statusCode) {
       const body = response.body;
@@ -69,7 +69,7 @@ app.post('/api/pay-request', async (req, res) => {
     const amount = req.body.amount;
     const comment = req.body.comment;
 
-    const options = getUrlOptionsGot(callback + '?amount=' + amount + '&comment=' + comment);
+    const options = getRestOptionsGot(callback + '?amount=' + amount + '&comment=' + comment);
     const response = await getGot(options);
     if (200 === response.statusCode) {
       const body = response.body;
@@ -107,7 +107,7 @@ app.post('/pay-address-response', async function (req, res) {
   try {
     payData.address = req.body.lightningAddress;
     if (req.body.button === 'submit') {
-      const options = getUrlOptionsGot(url + '/api/lightning-address/' + payData.address);
+      const options = getRestOptionsGot(url + '/api/lightning-address/' + payData.address);
       const response = await getGot(options);
       if (200 === response.statusCode) {
         const body = response.body;
@@ -134,7 +134,7 @@ app.post('/pay-request-response', async function (req, res) {
     payData.amount = req.body.amount;
     payData.comment = req.body.comment;
     if (req.body.button === 'submit') {
-      const options = getUrlOptionsGot(url + '/api/pay-request', {
+      const options = getRestOptionsGot(url + '/api/pay-request', {
         callback: payData.addressResponse.callback,
         amount: payData.amount,
         comment: encodeURIComponent(payData.comment)

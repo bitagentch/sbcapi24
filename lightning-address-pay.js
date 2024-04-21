@@ -1,4 +1,4 @@
-import { validateLightningAddress, LIGHTNING_ADDRESS_INVALID, getUrlOptionsGot, getLightningAddressUri, getGot, logQrCode } from './util.js';
+import { validateLightningAddress, LIGHTNING_ADDRESS_INVALID, getRestOptionsGot, getLightningAddressUri, getGot, logQrCode } from './util.js';
 import { question } from 'readline-sync';
 
 const main = async function () {
@@ -7,7 +7,7 @@ const main = async function () {
         console.error(LIGHTNING_ADDRESS_INVALID);
         process.exit();
     }
-    let options = getUrlOptionsGot(getLightningAddressUri(lightningAddress));
+    let options = getRestOptionsGot(getLightningAddressUri(lightningAddress));
     let response = await getGot(options);
     let body = response.body;
     if ('payRequest' == body.tag) {
@@ -20,7 +20,7 @@ const main = async function () {
 
             const comment = question('Comment ');
             if (comment.length >= 0 && comment.length <= body.commentAllowed) {
-                options = getUrlOptionsGot(body.callback + '?amount=' + amount + '&comment=' + comment);
+                options = getRestOptionsGot(body.callback + '?amount=' + amount + '&comment=' + comment);
                 response = await getGot(options);
                 if (200 === response.statusCode) {
                     body = response.body;

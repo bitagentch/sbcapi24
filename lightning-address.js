@@ -1,9 +1,9 @@
-import { validateLightningAddress, LIGHTNING_ADDRESS_INVALID, getUrlOptionsGot, getLightningAddressUri, getGot } from './util.js';
+import { validateLightningAddress, LIGHTNING_ADDRESS_INVALID, getRestOptionsGot, getLightningAddressUri, getGot } from './util.js';
 
 const lightningAddress = process.argv[2];
 if (!validateLightningAddress(lightningAddress)) {
     console.error(LIGHTNING_ADDRESS_INVALID);
     process.exit();
 }
-const options = getUrlOptionsGot(getLightningAddressUri(lightningAddress));
+const options = getRestOptionsGot(getLightningAddressUri(lightningAddress));
 getGot(options);
